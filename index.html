@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VO Lead Generation System</title>
+    <style>
+@import url('https://cdn.jsdelivr.net/gh/fonts-archive/Charter/Charter.css');
+
+@font-face {
+    font-family: 'Atkinson Hyperlegible Next';
+    src: url(fonts/AtkinsonHyperlegibleNext-Regular.woff2) format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Atkinson Hyperlegible Next';
+    src: url(fonts/AtkinsonHyperlegibleNext-Bold.woff2) format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Atkinson Hyperlegible Next';
+    src: url(fonts/AtkinsonHyperlegibleNext-Italic.woff2) format('woff2');
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+}
+
+* { box-sizing: border-box; }
+html { font-size: 18px; }
+
+@media (max-width: 600px) {
+    html { font-size: 22px; }
+}
+
+body {
+    font-family: 'Atkinson Hyperlegible Next', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 1rem;
+    line-height: 1.4;
+    color: rgb(25, 25, 25);
+    background: rgb(247, 247, 247);
+    max-width: 38em;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: Charter, Georgia, 'Times New Roman', serif;
+    font-weight: bold;
+    line-height: 1.2;
+    margin-top: 1.5em;
+    margin-bottom: 0.625em;
+}
+
+h1 { font-size: 1.6rem; color: rgb(51, 51, 51); }
+h2 { font-size: 1.35rem; color: rgb(51, 51, 51); }
+h3 { font-size: 1.15rem; font-weight: bold; color: rgb(51, 51, 51); }
+
+p { margin: 0 0 1em 0; }
+
+blockquote {
+    margin: 1em 0;
+    padding-left: 1.5em;
+    border-left: 3px solid rgb(200, 200, 200);
+    color: rgb(85, 85, 85);
+}
+
+ul, ol { margin: 1em 0; padding-left: 1.5em; }
+li { margin-bottom: 0.3em; }
+
+a { color: rgb(25, 25, 25); text-decoration: underline; }
+a:hover { color: rgb(26, 195, 255); }
+
+code {
+    font-family: 'SF Mono', Consolas, monospace;
+    font-size: 0.85em;
+    background: rgb(235, 235, 235);
+    padding: 0.1em 0.3em;
+    border-radius: 3px;
+}
+
+pre {
+    background: rgb(235, 235, 235);
+    padding: 1em;
+    overflow-x: auto;
+    border-radius: 3px;
+}
+
+pre code { background: none; padding: 0; }
+
+hr { border: none; border-top: 1px solid rgb(200, 200, 200); margin: 2em 0; }
+
+table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+th, td { border: 1px solid rgb(200, 200, 200); padding: 0.5em; text-align: left; }
+th { background: rgb(235, 235, 235); }
+
+img { max-width: 100%; height: auto; }
+
+.title-block {
+    text-align: center;
+    min-height: 100vh;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0;
+    border-bottom: 1px solid rgb(200, 200, 200);
+}
+
+.title-block h1 { margin: 0 0 1.5em 0; font-size: 1.8rem; }
+.title-block .byline { font-size: 0.9rem; color: rgb(85, 85, 85); margin-bottom: 0.3em; }
+.title-block .author { font-size: 1.15rem; }
+
+#toc {
+    margin-top: 2em;
+    margin-bottom: 0;
+    padding-bottom: 2em;
+    border-bottom: 1px solid rgb(200, 200, 200);
+}
+
+#toc-heading { margin-top: 0; font-size: 1.2rem; color: rgb(51, 51, 51); }
+#toc ol { padding-left: 1.5em; margin: 0; font-family: Charter, Georgia, 'Times New Roman', serif; }
+#toc li { margin-bottom: 0.5em; }
+#toc a { font-family: Charter, Georgia, 'Times New Roman', serif; color: rgb(25, 25, 25); text-decoration: none; }
+#toc a:hover { color: rgb(26, 195, 255); text-decoration: underline; }
+
+.chapter {
+    padding-top: 2em;
+    padding-bottom: 2em;
+    border-bottom: 1px solid rgb(220, 220, 220);
+}
+
+.chapter:last-of-type { border-bottom: none; }
+.chapter h2:first-child { margin-top: 0; }
+
+.back-to-top {
+    display: block;
+    margin-top: 2em;
+    font-size: 0.75rem;
+    color: rgb(153, 153, 153);
+    text-decoration: none;
+}
+
+.back-to-top:hover { color: rgb(26, 195, 255); }
+
+/* ── screenplay layout ──────────────────────────────────────────────── */
+
+body.screenplay {
+    max-width: 6in;
+    line-height: 1.5;
+}
+
+body.screenplay h1 {
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 1.5em;
+}
+
+.scene-heading {
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+}
+
+.character {
+    margin-left: 2.2in;
+    margin-bottom: 0;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.dialogue {
+    margin-left: 1in;
+    margin-right: 1.5in;
+    margin-top: 0;
+    margin-bottom: 0.75em;
+}
+
+.character + .dialogue {
+    margin-top: 0;
+}
+
+.action {
+    margin-top: 0;
+    margin-bottom: 0.75em;
+}
+
+.section-label {
+    text-align: center;
+    font-weight: bold;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    color: rgb(120, 120, 120);
+}
+
+body.screenplay hr.section-break {
+    margin: 2.5em 0 0.5em 0;
+}
+
+/* ── screenplay responsive: tablet ─────────────────────────────────── */
+
+@media (max-width: 768px) {
+    .dialogue {
+        margin-left: 0.75in;
+        margin-right: 1in;
+    }
+}
+
+/* ── screenplay responsive: mobile ─────────────────────────────────── */
+
+@media (max-width: 600px) {
+    body.screenplay {
+        max-width: 100%;
+    }
+    .character {
+        margin-left: 0;
+        text-align: center;
+        font-weight: bold;
+    }
+    .dialogue {
+        margin-left: 1em;
+        margin-right: 0;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    body { color: rgb(204, 204, 204); background: rgb(26, 26, 26); }
+    h1 { color: rgb(224, 224, 224); }
+    h2 { color: rgb(224, 224, 224); }
+    h3 { color: rgb(224, 224, 224); }
+    blockquote { border-left-color: rgb(102, 102, 102); color: rgb(170, 170, 170); }
+    a { color: rgb(204, 204, 204); }
+    code, pre { background: rgb(40, 40, 40); }
+    hr { border-top-color: rgb(102, 102, 102); }
+    th, td { border-color: rgb(102, 102, 102); }
+    th { background: rgb(40, 40, 40); }
+    .title-block { border-bottom-color: rgb(102, 102, 102); }
+    .title-block .byline { color: rgb(170, 170, 170); }
+    #toc { border-bottom-color: rgb(102, 102, 102); }
+    #toc-heading { color: rgb(224, 224, 224); }
+    #toc a { color: rgb(204, 204, 204); }
+    .chapter { border-bottom-color: rgb(51, 51, 51); }
+    .back-to-top { color: rgb(102, 102, 102); }
+    .section-label { color: rgb(153, 153, 153); }
+}
+    </style>
+</head>
+<body>
+<div class="title-block">
+  <h1>VO Lead Generation System</h1>
+</div>
+<nav id="toc">
+  <h3 id="toc-heading">Contents</h3>
+  <ol>
+    <li><a href="#the-stack">The Stack</a></li>
+    <li><a href="#target-niches-priority-order">Target Niches (Priority Order)</a></li>
+    <li><a href="#part-1-initial-setup-one-time-2-3-hours">Part 1: Initial Setup (One-Time, ~2-3 Hours)</a></li>
+  </ol>
+</nav>
+<div class="chapter">
+<h2 id="the-stack">The Stack</h2>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 42%" />
+<col style="width: 28%" />
+</colgroup>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Purpose</th>
+<th>Cost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.apollo.io">Apollo.io</a></td>
+<td>Lead sourcing + automated email outreach</td>
+<td>~$49/mo</td>
+</tr>
+<tr>
+<td><a href="https://www.bodalgo.com">Bodalgo</a></td>
+<td>Curated inbound auditions</td>
+<td>~$299/yr</td>
+</tr>
+<tr>
+<td><a href="https://www.streak.com">Streak</a></td>
+<td>Pipeline tracking in Gmail</td>
+<td>Free</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Why this combination:</strong> - Apollo handles <em>prospecting</em> (finding leads, initial outreach, automated follow-up sequences) - Bodalgo handles <em>inbound</em> (quality jobs come to you) - Streak handles <em>relationship tracking</em> (what you sent, who responded, pipeline status)</p>
+<hr />
+  <a href="#toc" class="back-to-top">Back to top</a>
+</div>
+<div class="chapter">
+<h2 id="target-niches-priority-order">Target Niches (Priority Order)</h2>
+<ol type="1">
+<li><strong>Explainer videos</strong> — 60-90 seconds, $250-400/video. SaaS companies churn through them constantly. Fastest path to money.</li>
+<li><strong>E-learning</strong> — $0.15-0.25/word, projects run 5,000-50,000+ words. Longer game but recurring revenue once landed.</li>
+<li><strong>Regional commercial</strong> — 15-60 seconds, $500-2,000+ per spot. Highest ceiling but more competitive.</li>
+</ol>
+<hr />
+  <a href="#toc" class="back-to-top">Back to top</a>
+</div>
+<div class="chapter">
+<h2 id="part-1-initial-setup-one-time-2-3-hours">Part 1: Initial Setup (One-Time, ~2-3 Hours)</h2>
+<h3 id="a.-apollo.io-setup">A. Apollo.io Setup</h3>
+<p><strong>1. Create Account</strong> - Sign up at apollo.io - Connect your Gmail (for sending sequences) - Start email warmup immediately — takes 1-2 weeks before you can send at volume</p>
+<p><strong>2. Build Saved Searches</strong></p>
+<p><strong>SEARCH 1: Explainer Video Companies (US)</strong> - Job Titles: Video Producer, Creative Director, Content Producer, Head of Video, Video Production Manager - Industry: Marketing &amp; Advertising, Media Production, Internet - Keywords (company): “explainer video” OR “animated video” OR “product video” - Employee Count: 5-200 - Location: United States</p>
+<p><strong>SEARCH 2: Explainer Video Companies (International English)</strong> - Same filters as above - Location: United Kingdom, Canada, Australia</p>
+<p><strong>SEARCH 3: E-Learning / L&amp;D Companies (US)</strong> - Job Titles: Instructional Designer, Learning &amp; Development Manager, Training Manager, Director of Learning, Course Developer, L&amp;D Director - Industry: E-Learning, Professional Training &amp; Coaching, Human Resources - Keywords (company): “corporate training” OR “e-learning” OR “instructional design” - Employee Count: 10-500 - Location: United States</p>
+<p><strong>SEARCH 4: E-Learning / L&amp;D Companies (International English)</strong> - Same filters as above - Location: United Kingdom, Canada, Australia</p>
+<p><strong>3. Create Email Sequences</strong></p>
+<p><strong>SEQUENCE A: Explainer Video Outreach</strong></p>
+<p><em>Email 1 (Day 0):</em></p>
+<blockquote>
+<p>Subject: Voice for [Company Name] videos?</p>
+<p>Hi [First Name],</p>
+<p>I’m a voice-over narrator specializing in explainer and corporate video—the kind of authoritative but approachable read that makes complex topics clear.</p>
+<p>[Company Name]’s work caught my eye. If you ever need a male voice for upcoming projects, I’d be glad to send samples or cut a quick custom demo.</p>
+<p>Demo reel: [LINK]</p>
+<p>Best, Thomas</p>
+</blockquote>
+<p><em>Email 2 (Day 7):</em></p>
+<blockquote>
+<p>Subject: Re: Voice for [Company Name] videos?</p>
+<p>Hi [First Name],</p>
+<p>Quick follow-up—happy to record a short custom sample for any upcoming project if that’s useful. No obligation.</p>
+<p>[LINK to demo]</p>
+<p>Thomas</p>
+</blockquote>
+<p><em>Email 3 (Day 21):</em></p>
+<blockquote>
+<p>Subject: Re: Voice for [Company Name] videos?</p>
+<p>Hi [First Name],</p>
+<p>Last note for now—just want to make sure you have my info if a voice need comes up.</p>
+<p>[LINK to demo]</p>
+<p>Feel free to reach out anytime.</p>
+<p>Thomas</p>
+</blockquote>
+<p><strong>SEQUENCE B: E-Learning Outreach</strong></p>
+<p><em>Email 1 (Day 0):</em></p>
+<blockquote>
+<p>Subject: Narration for [Company Name] training content?</p>
+<p>Hi [First Name],</p>
+<p>I’m a voice-over narrator with a focus on e-learning and corporate training—clear, professional delivery that keeps learners engaged without getting in the way.</p>
+<p>If [Company Name] ever outsources narration, I’d welcome the chance to be considered. Happy to send samples or record a quick test.</p>
+<p>Demo reel: [LINK]</p>
+<p>Best, Thomas</p>
+</blockquote>
+<p><em>Email 2 (Day 7):</em></p>
+<blockquote>
+<p>Subject: Re: Narration for [Company Name] training content?</p>
+<p>Hi [First Name],</p>
+<p>Following up—if you have an upcoming module that needs narration, I’m glad to cut a sample from your actual script. No charge, no obligation.</p>
+<p>[LINK to demo]</p>
+<p>Thomas</p>
+</blockquote>
+<p><em>Email 3 (Day 21):</em></p>
+<blockquote>
+<p>Subject: Re: Narration for [Company Name] training content?</p>
+<p>Hi [First Name],</p>
+<p>Just a final ping to keep my info on your radar. I know these needs come up unpredictably.</p>
+<p>[LINK to demo]</p>
+<p>Anytime you need a voice, I’m here.</p>
+<p>Thomas</p>
+</blockquote>
+<p><strong>4. Save Sequences as Templates</strong> - Apollo lets you save these so you can enroll new leads with one click</p>
+<hr />
+<h3 id="b.-bodalgo-setup">B. Bodalgo Setup</h3>
+<ol type="1">
+<li>Sign up at bodalgo.com</li>
+<li>Upload demo reel clips (segment by type if you have separate cuts: commercial, narration, e-learning)</li>
+<li>Fill profile completely — Bodalgo is curated, quality matters</li>
+<li>Set notification preferences for new jobs matching your voice type</li>
+<li>Start with Pro subscription (~$299/year)</li>
+</ol>
+<hr />
+<h3 id="c.-streak-setup-gmail">C. Streak Setup (Gmail)</h3>
+<ol type="1">
+<li>Install Chrome extension from streak.com</li>
+<li>Connect to your Gmail</li>
+</ol>
+<p><strong>Create Pipeline: “VO Submissions”</strong></p>
+<p>Columns (stages):</p>
+  <a href="#toc" class="back-to-top">Back to top</a>
+</div>
+</body>
+</html>
